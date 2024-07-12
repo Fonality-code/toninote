@@ -4,6 +4,10 @@ from fastapi_versioning import VersionedFastAPI
 from fastapi import FastAPI
 
 
+
+from routes.v1 import file_upload
+
+
 app = FastAPI(
     title=Settings().APP_NAME,
     version=Settings().APP_VERSION,
@@ -21,6 +25,9 @@ app.add_middleware(
     allow_headers=["*"],
     allow_credentials=True
 )
+
+
+app.include_router(file_upload.router, prefix="/file_upload", tags=["file_upload"])
 
 
 @app.get('/')
